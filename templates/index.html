@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>电竞预测 Demo</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>电竞预测 Demo</h1>
+
+    <!-- 显示预测结果 -->
+    <div class="result-area">
+        {% if pregame_result %}
+            <h2>赛前预测结果</h2>
+            <p>{{ pregame_result }}</p>
+        {% endif %}
+        {% if ingame_result %}
+            <h2>赛中预测结果</h2>
+            <p>{{ ingame_result }}</p>
+        {% endif %}
+    </div>
+
+    <!-- 赛前预测 -->
+    <section id="pregame-section">
+        <h2>赛前预测</h2>
+        <form method="post" action="/">
+            <div class="team-inputs">
+                <div>
+                    <label for="team1">队伍1名称：</label>
+                    <input type="text" id="team1" name="team1" required>
+                </div>
+                <div>
+                    <label for="team2">队伍2名称：</label>
+                    <input type="text" id="team2" name="team2" required>
+                </div>
+            </div>
+            <input type="hidden" name="mode" value="pregame">
+            <div class="center">
+                <button type="submit">开始赛前预测</button>
+            </div>
+        </form>
+    </section>
+
+    <hr>
+
+    <!-- 赛中预测 -->
+    <section id="ingame-section">
+        <h2>赛中预测</h2>
+        <form method="post" action="/">
+            <div class="team-inputs">
+                <div>
+                    <label for="team1_name">队伍1名称：</label>
+                    <input type="text" id="team1_name" name="team1_name" required>
+                </div>
+                <div>
+                    <label for="team2_name">队伍2名称：</label>
+                    <input type="text" id="team2_name" name="team2_name" required>
+                </div>
+            </div>
+
+            <div class="center">
+                <label for="game_phase">比赛阶段：</label>
+                <select id="game_phase" name="game_phase">
+                    <option value="early">Early 10min</option>
+                    <option value="mid">Mid 15min</option>
+                    <option value="late">Late</option>
+                </select>
+            </div>
+
+            <div id="feature-inputs">
+                <!-- Early 10min -->
+                <div id="early-inputs" class="phase-inputs">
+                    <h3>Early10min 特征</h3>
+                    <input type="number" name="golddiffat10" placeholder="Gold Diff at 10">
+                    <input type="number" name="xpdiffat10" placeholder="XP Diff at 10">
+                    <input type="number" name="csdiffat10" placeholder="CS Diff at 10">
+                    <input type="number" name="team1_kdaat10" placeholder="Team1 KDA at 10">
+                    <input type="number" name="team2_kdaat10" placeholder="Team2 KDA at 10">
+                </div>
+
+                <!-- Mid 15min -->
+                <div id="mid-inputs" class="phase-inputs" style="display:none;">
+                    <h3>Mid15min 特征</h3>
+                    <input type="number" name="golddiffat15" placeholder="Gold Diff at 15">
+                    <input type="number" name="xpdiffat15" placeholder="XP Diff at 15">
+                    <input type="number" name="csdiffat15" placeholder="CS Diff at 15">
+                    <input type="number" name="team1_kdaat15" placeholder="Team1 KDA at 15">
+                    <input type="number" name="team2_kdaat15" placeholder="Team2 KDA at 15">
+                    <input type="number" name="firstblood" placeholder="First Blood">
+                    <input type="number" name="firstdragon" placeholder="First Dragon">
+                    <input type="number" name="firstherald" placeholder="First Herald">
+                    <input type="number" name="firsttower" placeholder="First Tower">
+                    <input type="number" name="team1turretplates" placeholder="Team1 Turret Plates">
+                    <input type="number" name="team2turretplates" placeholder="Team2 Turret Plates">
+                </div>
+
+                <!-- Late -->
+                <div id="late-inputs" class="phase-inputs" style="display:none;">
+                    <h3>Late 特征</h3>
+                    <input type="number" name="golddiffat15_late" placeholder="Gold Diff at 15">
+                    <input type="number" name="xpdiffat15_late" placeholder="XP Diff at 15">
+                    <input type="number" name="csdiffat15_late" placeholder="CS Diff at 15">
+                    <input type="number" name="team1_kdaat15_late" placeholder="Team1 KDA at 15">
+                    <input type="number" name="team2_kdaat15_late" placeholder="Team2 KDA at 15">
+                    <input type="number" name="firstblood_late" placeholder="First Blood">
+                    <input type="number" name="firstdragon_late" placeholder="First Dragon">
+                    <input type="number" name="firstherald_late" placeholder="First Herald">
+                    <input type="number" name="firsttower_late" placeholder="First Tower">
+                    <input type="number" name="team1turretplates_late" placeholder="Team1 Turret Plates">
+                    <input type="number" name="team2turretplates_late" placeholder="Team2 Turret Plates">
+                    <input type="number" name="firstbaron" placeholder="First Baron">
+                    <input type="number" name="firstmidtower" placeholder="First Mid Tower">
+                </div>
+            </div>
+
+            <input type="hidden" name="mode" value="ingame">
+            <div class="center">
+                <button type="submit">开始赛中预测</button>
+            </div>
+        </form>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
